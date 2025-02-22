@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  oracle-db:
+    image: gvenzl/oracle-xe:latest
+    container_name: oracle-db
+    restart: always
+    ports:
+      - "1521:1521" # Oracle SQL*Net
+      - "5500:5500" # Oracle Enterprise Manager
+    environment:
+      ORACLE_PASSWORD: root # Change to a strong password
+      ORACLE_ALLOW_REMOTE: "true"
+      ORACLE_DATABASE: DS_Practicals
+      ORACLE_PDB: ORCLPDB1
+    volumes:
+      - ~/oracle-data:/opt/oracle/oradata # Persistent data directory
+
+  # sqlplus:
+  #   image: store/oracle/database-instantclient:latest
+  #   container_name: sqlplus-client
+  #   depends_on:
+  #     - oracle-db
+  #   stdin_open: true
+  #   tty: true
+  #   environment:
+  #     TNS_ADMIN: /oracle
+  #   volumes:
+  #     - ~/oracle-config:/oracle
+  #   command: ["/bin/bash"]
+
+volumes:
+  oracle-data:
+  oracle-config:
