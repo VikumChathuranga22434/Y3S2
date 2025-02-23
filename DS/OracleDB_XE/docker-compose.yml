@@ -15,6 +15,12 @@ services:
       ORACLE_PDB: ORCLPDB1
     volumes:
       - ~/oracle-data:/opt/oracle/oradata # Persistent data directory
+    command:
+      [
+        "/bin/sh",
+        "-c",
+        "chmod -R 777 /opt/oracle/oradata && exec docker-entrypoint.sh",
+      ]
 
   # sqlplus:
   #   image: store/oracle/database-instantclient:latest
