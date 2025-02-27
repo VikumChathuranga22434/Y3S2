@@ -95,6 +95,14 @@ Alternatively, log in as the default `system` user:
 docker exec -it oracle-db sqlplus system/root@DS_Practicals
 ```
 
+Or else you can log into the docker container, simply using this command 
+```sh
+docker exec -it oracle-db bash
+```
+this will open a bash terminal inside the docker container
+
+and after that we can use ```sqlplus``` command to login to the sqlplus ad give the username as system and pass as root
+
 - Replace `root` with your configured password if different.
 - `DS_Practicals` is the database name as defined in the environment variables.
 - `sys/root@DS_Practicals as sysdba` logs in with SYSDBA privileges.
@@ -156,6 +164,11 @@ docker ps
 And verify that port `1521` is open:
 ```sh
 netstat -tulnp | grep 1521
+```
+
+- If the container is up and restarting frquestlyuse this to change the permission to the volume folder
+```sh
+sudo chmod -R 777 ~/oracle-data
 ```
 
 ---

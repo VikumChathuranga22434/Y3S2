@@ -19,7 +19,7 @@ services:
       [
         "/bin/sh",
         "-c",
-        "chmod -R 777 /opt/oracle/oradata && exec docker-entrypoint.sh",
+        "chmod -R 777 ~/oracle-data",
       ]
 
   # sqlplus:
