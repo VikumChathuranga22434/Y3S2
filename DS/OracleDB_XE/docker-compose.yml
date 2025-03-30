@@ -22,6 +22,28 @@ services:
         "chmod -R 777 /opt/oracle/oradata && exec docker-entrypoint.sh",
       ]
 
+  mssql-server:
+    image: mcr.microsoft.com/mssql/server
+    container_name: mssql-server
+    restart: always
+    ports:
+      - "1433:1433" # MS SQL Server default port
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "StrongPassword123!" # Change to a strong password
+    volumes:
+      - ~/mssql-data:/var/opt/mssql
+    # command: ["sudo", "chmod", "-R", "777", "~/mssql-data"] # Persistent data directory
+
+  mssql-client:
+    image: mcr.microsoft.com/mssql-tools
+    container_name: mssql-client
+    depends_on:
+      - mssql-server
+    stdin_open: true
+    tty: true
+    command: ["/bin/bash"]
+
   # sqlplus:
   #   image: store/oracle/database-instantclient:latest
   #   container_name: sqlplus-client
@@ -38,3 +60,4 @@ services:
 volumes:
   oracle-data:
   oracle-config:
+  mssql-data:
